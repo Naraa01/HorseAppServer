@@ -12,7 +12,8 @@ const {
 router
   .route("/")
   .get(getHorses) //.post(protect, createHorseM);
-  .post(protect, authorize("admin"), createHorseM);
+  // .post(protect, createHorseM);
+  .post(createHorseM);
 router
   .route("/:id")
   .get(getHorseM)

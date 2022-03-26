@@ -66,6 +66,9 @@ const HorseSchema = new mongoose.Schema({
   award: {
     type: String,
   },
+  status: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Horse", HorseSchema);
