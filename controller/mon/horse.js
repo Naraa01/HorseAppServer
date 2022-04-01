@@ -121,3 +121,45 @@ exports.deleteHorse = asyncHandler(async (req, res, next) => {
     data: horse,
   });
 });
+
+exports.uploadHorsePhoto = asyncHandler(async (req, res, next) => {
+  console.log("=====req=====", req);
+  const horse = await Horse.findById(req.params.id);
+
+  if (!horse) {
+    throw new MyError(req.params.id + " ID-тэй ном байхгүйээ.", 400);
+  }
+
+  // image upload
+
+  const file = req.files.file;
+
+  console.log("---file---", file);
+
+  if (!file.mimetype.startsWith("image")) {
+    throw new MyError("Та зураг upload хийнэ үү.", 400);
+  }
+
+  if (file.size > process.env.MAX_UPLOAD_FILE_SIZE) {
+    throw new MyError("Таны зурагны хэмжээ хэтэрсэн байна.", 400);
+  }
+
+  // file.name = `photo_${req.params.id}${path.parse(file.name).ext}`;
+
+  file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, (err) => {
+    if (err) {
+      throw new MyError(
+        "Файлыг хуулах явцад алдаа гарлаа. Алдаа : " + err.message,
+        400
+      );
+    }
+
+    horse.photo = file.name;
+    horse.save();
+
+    res.status(200).json({
+      success: true,
+      data: file.name,
+    });
+  });
+});

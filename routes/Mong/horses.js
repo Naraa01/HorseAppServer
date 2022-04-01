@@ -7,6 +7,7 @@ const {
   updateHorse,
   getHorseM,
   deleteHorse,
+  uploadHorsePhoto,
 } = require("../../controller/mon/horse");
 
 router
@@ -21,5 +22,8 @@ router
   // .delete(protect, deleteHorse)
   .put(updateHorse)
   .delete(deleteHorse);
+
+router.route("/:id/upload-photo").put(uploadHorsePhoto);
+// uploadHorsePhoto
 
 module.exports = router;

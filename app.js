@@ -48,6 +48,7 @@ app.post("/upload", upload.single("profile"), (req, res) => {
   console.log(req.file);
   res.json({
     success: true,
+    // profile_url: `http://localhost:5001/profile/${req.file.filename}`,
     profile_url: `http://localhost:5001/profile/${req.file.filename}`,
   });
 });
