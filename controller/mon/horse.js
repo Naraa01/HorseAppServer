@@ -123,18 +123,20 @@ exports.deleteHorse = asyncHandler(async (req, res, next) => {
 });
 
 exports.uploadHorsePhoto = asyncHandler(async (req, res, next) => {
-  console.log("=====req=====", req);
+  // console.log( req, "=====req=====");
   const horse = await Horse.findById(req.params.id);
 
   if (!horse) {
-    throw new MyError(req.params.id + " ID-тэй ном байхгүйээ.", 400);
+    throw new MyError(req.params.id + " ID байхгүйээ.", 400);
   }
 
   // image upload
 
   const file = req.files.file;
-
-  console.log("---file---", file);
+  console.log(req, "req");
+  console.log(req.files, "req  files");
+  console.log(req.files.file, "req filesfilesfilesfiles");
+  console.log(file, "file ********************");
 
   if (!file.mimetype.startsWith("image")) {
     throw new MyError("Та зураг upload хийнэ үү.", 400);

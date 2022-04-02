@@ -23,7 +23,10 @@ router
   .put(updateHorse)
   .delete(deleteHorse);
 
-router.route("/:id/upload-photo").put(uploadHorsePhoto);
 // uploadHorsePhoto
+router.route("/:id/upload-photo").put(uploadHorsePhoto);
+// router
+//   .route("/:id/upload-photo")
+//   .put(protect, authorize("admin", "operator"), uploadHorsePhoto);
 
 module.exports = router;
