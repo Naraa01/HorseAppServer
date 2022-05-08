@@ -21,6 +21,7 @@ const CommentRoutes = require("./routes/comments");
 const UserMRoutes = require("./routes/usersM");
 const HorseMroutes = require("./routes/Mong/horses");
 const GenderRoutes = require("./routes/gender");
+const CommentsMonRoutes = require("./routes/Mong/comments");
 
 const injectDb = require("./middleware/injectDb");
 
@@ -66,6 +67,7 @@ app.use("/comment", CommentRoutes);
 app.use("/userM", UserMRoutes);
 app.use("/horsesM", HorseMroutes);
 app.use("/gender", GenderRoutes);
+app.use("/comments", CommentsMonRoutes);
 
 app.use(Error);
 

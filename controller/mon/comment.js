@@ -31,7 +31,9 @@ exports.createComment = asyncHandler(async (req, res, next) => {
   // if (!gender) {
   //   throw new MyError(req.body.genderId + " ID-gender baihgui", 400);
   // }
-
+  console.log(req, "--- req ");
+  console.log(req.body, "--- req body hello");
+  console.log(req.userId, "--- req userId hello");
   req.body.createUser = req.userId;
 
   const comment = await Comment.create(req.body);
