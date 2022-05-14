@@ -11,9 +11,11 @@ const {
 
 router
   .route("/")
-  .get(getComments) //.post(protect, createComment);
-  .post(protect, authorize("user", "admin", "operator"), createComment);
-// .post(createComment);
+  .get(getComments)
+  // .post(protect, createComment);
+  .post(createComment);
+// .post(protect, authorize("user", "admin", "operator"), createComment);
+
 router
   .route("/:id")
   .get(getComment)

@@ -16,6 +16,12 @@ const CommentSchema = new mongoose.Schema({
     //   len: { args: [1, 450], msg: "Name-iin too baga eswel ih baina" },
     // },
   },
+  horseId: {
+    type: String,
+  },
+  userId: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Comment", CommentSchema);
