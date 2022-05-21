@@ -29,7 +29,7 @@ exports.getHorses = asyncHandler(async (req, res, next) => {
 // genders/:horseId/horses
 exports.getCategoryHorses = asyncHandler(async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 2;
+  const limit = parseInt(req.query.limit) || 20;
   const sort = req.query.sort;
   const select = req.query.select;
   let search = req.query.search;
