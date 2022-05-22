@@ -8,6 +8,7 @@ const {
   getHorseM,
   deleteHorse,
   uploadHorsePhoto,
+  getHorseComments,
 } = require("../../controller/mon/horse");
 
 router
@@ -23,6 +24,7 @@ router
   .put(updateHorse)
   .delete(deleteHorse);
 
+router.route("/comments/:id").get(getHorseComments);
 // uploadHorsePhoto
 router.route("/:id/upload-photo").put(uploadHorsePhoto);
 // router

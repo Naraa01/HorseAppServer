@@ -3,6 +3,7 @@ const Horse = require("../../models/Mon/Horse");
 const asyncHandler = require("express-async-handler");
 const paginate = require("../../utils/paginate");
 const Gender = require("../../models/Gender");
+const Comment = require("../../models/Mon/Comment");
 
 exports.getHorses = asyncHandler(async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
@@ -125,6 +126,18 @@ exports.getHorseM = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     data: horse,
+  });
+});
+
+exports.getHorseComments = asyncHandler(async (req, res, next) => {
+  const comments = await Comment.find({ horseId: req.params.id });
+  if (!comments) {
+    throw new MyError("Comment error!!", 401);
+  }
+
+  res.status(200).json({
+    success: true,
+    data: comments,
   });
 });
 
