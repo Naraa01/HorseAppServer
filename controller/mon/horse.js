@@ -157,6 +157,24 @@ exports.updateHorse = asyncHandler(async (req, res, next) => {
   });
 });
 
+exports.updateHorseRating = asyncHandler(async (req, res, next) => {
+  // console.log("ssssssssssssssssssssy.", res);
+  // console.log("req.body.rating", req.body.rating);
+  // console.log("req.body.", req.body);
+  // console.log("req req req req.", req);
+  const horse = await Horse.findById(req.params.id);
+  if (!horse) {
+    throw new MyError(req.params.id + " id tei horse oldoogue", 401);
+  }
+  horse.rating = req.body.value;
+  await horse.save();
+
+  res.status(200).json({
+    success: true,
+    data: horse,
+  });
+});
+
 exports.deleteHorse = asyncHandler(async (req, res, next) => {
   const horse = await Horse.findByIdAndDelete(req.params.id);
 

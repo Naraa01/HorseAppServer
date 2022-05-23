@@ -69,6 +69,9 @@ const HorseSchema = new mongoose.Schema({
   status: {
     type: String,
   },
+  rating: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Horse", HorseSchema);
