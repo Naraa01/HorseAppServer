@@ -116,11 +116,16 @@ exports.createHorseM = asyncHandler(async (req, res, next) => {
 });
 
 exports.getHorseM = asyncHandler(async (req, res, next) => {
-  // const horse = await Horse.findById(req.params.id);
-  const horse = await Horse.find({ _id: req.params.id });
-
+  let horse = await Horse.findOne({ _id: req.params.id }).populate([
+    "fatherId",
+    "motherId",
+  ]);
   if (!horse) {
     throw new MyError(req.params.id + "id tei hosre oldoogue", 401);
+  }
+
+  if (horse) {
+    await parenCheck(horse);
   }
 
   res.status(200).json({
@@ -128,6 +133,32 @@ exports.getHorseM = asyncHandler(async (req, res, next) => {
     data: horse,
   });
 });
+
+// etseg ehiin olj utga onoono
+const parenCheck = async (horse) => {
+  // ehiini shalgah
+  if (horse?.motherId) {
+    const foundMother = await Horse.findOne({ _id: horse.motherId }).populate([
+      "fatherId",
+      "motherId",
+    ]);
+    if (foundMother) {
+      horse.motherId = foundMother;
+      await parenCheck(foundMother);
+    }
+  }
+  // etsgin shalgah
+  if (horse?.fatherId) {
+    const foundFather = await Horse.findOne({ _id: horse.fatherId }).populate([
+      "fatherId",
+      "motherId",
+    ]);
+    if (foundFather) {
+      horse.fatherId = foundFather;
+      await parenCheck(foundFather);
+    }
+  }
+};
 
 exports.getHorseComments = asyncHandler(async (req, res, next) => {
   const comments = await Comment.find({ horseId: req.params.id });

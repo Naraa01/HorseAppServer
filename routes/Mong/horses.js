@@ -12,6 +12,7 @@ const {
   updateHorseRating,
 } = require("../../controller/mon/horse");
 
+// /horsesM
 router
   .route("/")
   .get(getHorses) //.post(protect, createHorseM);
