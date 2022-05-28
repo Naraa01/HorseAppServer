@@ -80,7 +80,7 @@ Authorization: {{accessToken}}
 
 // ------- horse id
 ### GET horse id
-GET {{url}}/horsesM/61af8744bd9782fa37321029
+GET {{url}}/horsesM/61b373b840b4256c03fd0495
 Content-Type: application/json
 Accept: application/json
 accessToken: {{accessToken}}

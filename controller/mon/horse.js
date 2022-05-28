@@ -124,6 +124,21 @@ exports.getHorseM = asyncHandler(async (req, res, next) => {
     throw new MyError(req.params.id + "id tei hosre oldoogue", 401);
   }
 
+  res.status(200).json({
+    success: true,
+    data: horse,
+  });
+});
+
+exports.getHorseTree = asyncHandler(async (req, res, next) => {
+  let horse = await Horse.findOne({ _id: req.params.id }).populate([
+    "fatherId",
+    "motherId",
+  ]);
+  if (!horse) {
+    throw new MyError(req.params.id + "id tei hosre oldoogue", 401);
+  }
+
   if (horse) {
     await parenCheck(horse);
   }
