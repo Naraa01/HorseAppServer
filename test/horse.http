@@ -85,6 +85,13 @@ Content-Type: application/json
 Accept: application/json
 accessToken: {{accessToken}}
 
+// ------- horse no parent
+### GET horse no parent
+GET {{url}}/noParent
+Content-Type: application/json
+Accept: application/json
+accessToken: {{accessToken}}
+
 // ------- horses
 ### GET horse
 GET {{url}}/horsesM

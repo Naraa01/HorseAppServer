@@ -11,6 +11,7 @@ const {
   getHorseComments,
   updateHorseRating,
   getHorseTree,
+  getHorseNoParent,
 } = require("../../controller/mon/horse");
 
 // /horsesM
@@ -28,6 +29,7 @@ router
   .put(updateHorse)
   .delete(deleteHorse);
 
+// router.route("/noparent/:genderId").get(getHorseNoParent);
 router.route("/:id/tree").get(getHorseTree);
 router.route("/update/:id").put(updateHorseRating);
 

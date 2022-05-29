@@ -115,6 +115,46 @@ exports.createHorseM = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: horse });
 });
 
+exports.getHorseNoParent = asyncHandler(async (req, res, next) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 20;
+  const sort = req.query.sort;
+  const select = req.query.select;
+  let search = req.query.search;
+
+  ["select", "sort", "page", "limit", "search"].forEach(
+    (el) => delete req.query[el]
+  );
+
+  const pagination = await paginate(page, limit, Horse);
+
+  if (!search) search = "";
+
+  //req.query, select
+  const horses = await Horse.find(
+    {
+      ...req.query,
+      // genderId: req.params.genderId,
+      name: { $regex: search, $options: "i" },
+      motherId: { $exists: false },
+      fatherId: { $exists: false },
+    },
+    select
+  )
+    .populate(["fatherId", "motherId"])
+    .where("fatherId is not null")
+    .sort(sort)
+    .skip(pagination.start - 1)
+    .limit(limit);
+
+  res.status(200).json({
+    success: true,
+    count: horses.length,
+    data: horses,
+    pagination,
+  });
+});
+
 exports.getHorseM = asyncHandler(async (req, res, next) => {
   let horse = await Horse.findOne({ _id: req.params.id }).populate([
     "fatherId",

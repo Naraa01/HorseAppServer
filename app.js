@@ -22,6 +22,7 @@ const UserMRoutes = require("./routes/usersM");
 const HorseMroutes = require("./routes/Mong/horses");
 const GenderRoutes = require("./routes/gender");
 const CommentsMonRoutes = require("./routes/Mong/comments");
+const ParentRoutes = require("./routes/Mong/noParent");
 
 const injectDb = require("./middleware/injectDb");
 
@@ -66,6 +67,7 @@ app.use("/sire", SireRoutes);
 app.use("/comment", CommentRoutes);
 app.use("/userM", UserMRoutes);
 app.use("/horsesM", HorseMroutes);
+app.use("/noParent", ParentRoutes);
 app.use("/gender", GenderRoutes);
 app.use("/comments", CommentsMonRoutes);
 
