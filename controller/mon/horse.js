@@ -214,6 +214,53 @@ const parenCheck = async (horse) => {
     }
   }
 };
+exports.getHorseTree2 = asyncHandler(async (req, res, next) => {
+  let horse = await Horse.findOne({ _id: req.params.id }).populate([
+    "fatherId",
+    "motherId",
+  ]);
+  if (!horse) {
+    throw new MyError(req.params.id + "id tei hosre oldoogue", 401);
+  }
+
+  if (horse) {
+    let count = 0;
+    await parenCheck2(horse, count);
+  }
+
+  res.status(200).json({
+    success: true,
+    data: horse,
+  });
+});
+
+// etseg ehiin olj utga onoono
+const parenCheck2 = async (horse, count) => {
+  // ehiini shalgah
+  if (count < 2) {
+    console.log("count hello --> ", count);
+    count++;
+    if (horse?.motherId) {
+      const foundMother = await Horse.findOne({ _id: horse.motherId }).populate(
+        ["fatherId", "motherId"]
+      );
+      if (foundMother) {
+        horse.motherId = foundMother;
+        await parenCheck2(foundMother, count);
+      }
+    }
+    // etsgin shalgah
+    if (horse?.fatherId) {
+      const foundFather = await Horse.findOne({ _id: horse.fatherId }).populate(
+        ["fatherId", "motherId"]
+      );
+      if (foundFather) {
+        horse.fatherId = foundFather;
+        await parenCheck2(foundFather, count);
+      }
+    }
+  }
+};
 
 exports.getHorseComments = asyncHandler(async (req, res, next) => {
   const comments = await Comment.find({ horseId: req.params.id });

@@ -85,6 +85,20 @@ Content-Type: application/json
 Accept: application/json
 accessToken: {{accessToken}}
 
+// ------- horse id
+### GET horse id
+GET {{url}}/horsesM/61b373b840b4256c03fd0495/treelast
+Content-Type: application/json
+Accept: application/json
+accessToken: {{accessToken}}
+
+// ------- horse id
+### GET horse id
+GET {{url}}/horsesM/61b373b840b4256c03fd0495/tree
+Content-Type: application/json
+Accept: application/json
+accessToken: {{accessToken}}
+
 // ------- horse no parent
 ### GET horse no parent
 GET {{url}}/noParent
